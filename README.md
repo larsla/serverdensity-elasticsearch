@@ -11,7 +11,7 @@ Takes two optional config parameters:
 url: where to find the Elasticsearch HTTP endpoint
 node_name: hostname of the Elasticsearch node you want to return statistics about.
 
-Ex section for /etc/sd-agent/config.cfg:
-[Elasticsearch]
-url: http://127.0.0.1:9200
-node_name: elasticsearch01
+Ex section for /etc/sd-agent/config.cfg:  
+[Elasticsearch]  
+url: http://127.0.0.1:9200  
+node_name: elasticsearch01  
