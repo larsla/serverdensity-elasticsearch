@@ -36,8 +36,8 @@ class Elasticsearch(object):
                 'Python Requests module not installed,' +
                 'please install https://pypi.python.org/pypi/requests/')
 
-        self.url = self.raw_config['Elasticsearch'].get('url', 'http://localhost:9200')
-        self.node_name = self.raw_config['Elasticsearch'].get('node_name', socket.gethostname())
+        self.url = self.raw_config.get('Elasticsearch', {}).get('url', 'http://localhost:9200')
+        self.node_name = self.raw_config.get('Elasticsearch', {}).get('node_name', socket.gethostname())
 
     def run(self):
         import requests
