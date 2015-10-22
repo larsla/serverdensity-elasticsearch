@@ -1,15 +1,15 @@
-# Server Density Elasticsearch plugin
-Based on the Server Density Redis plugin
+# Server Density Elasticsearch plugin  
+Based on the Server Density Redis plugin  
 
-# Installation
-Requires the Python Requests library.
+# Installation  
+Requires the Python Requests library.  
 
-Copy Elasticsearch.py to your sd-agent plugins folder, then restart sd-agent.
+Copy Elasticsearch.py to your sd-agent plugins folder, then restart sd-agent.  
 
-# Configuration
-Takes two optional config parameters:
-url: where to find the Elasticsearch HTTP endpoint
-node_name: hostname of the Elasticsearch node you want to return statistics about.
+# Configuration  
+Takes two optional config parameters:  
+url: where to find the Elasticsearch HTTP endpoint  
+node_name: hostname of the Elasticsearch node you want to return statistics about.  
 
 Ex section for /etc/sd-agent/config.cfg:  
 [Elasticsearch]  
