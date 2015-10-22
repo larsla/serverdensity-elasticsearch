@@ -19,6 +19,7 @@ import platform
 import sys
 import time
 import socket
+import collections
 
 
 class Elasticsearch(object):
@@ -40,13 +41,13 @@ class Elasticsearch(object):
 
     def run(self):
         import requests
-        data = {"cluster": {}, "node": {}}
+        data = {}
         stats = None
 
         # Get cluster statistics
         try:
             r = requests.get('%s/_cluster/stats' % self.url)
-            data['cluster'] = json.loads(r.text)
+            data.update(self._flatten(json.loads(r.text), parent_key='cluster'))
         except Exception, e:
             self.checks_logger.exception("Caught exception: %s" % e)
 
@@ -60,12 +61,23 @@ class Elasticsearch(object):
 
             for node in d['nodes'].keys():
                 if d['nodes'][node]['host'] == self.node_name:
-                    data['node'] = d['nodes'][node]
+                    data.update(self._flatten(d['nodes'][node], parent_key='node'))
                     break
         except Exception, e:
             self.checks_logger.exception("Caught exception: %s" % e)
 
         return data
+
+
+    def _flatten(self, d, parent_key='', sep='_'):
+        items = []
+        for k, v in d.items():
+            new_key = parent_key + sep + k if parent_key else k
+            if isinstance(v, collections.MutableMapping):
+                items.extend(self._flatten(v, new_key, sep=sep).items())
+            else:
+                items.append((new_key, v))
+        return dict(items)
 
 
 if __name__ == '__main__':
